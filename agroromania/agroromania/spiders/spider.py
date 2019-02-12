@@ -22,10 +22,13 @@ class SpiderSpider(scrapy.Spider):
         for name_of_pesticide in table.find_all('div', {'class': 'col3 productLst'})[1:2]: #ToDo убрать срез
             yield scrapy.Request(
                 url=name_of_pesticide.a['href'],
-                callback=self.parse_pesticide,
+                callback=self.parse_content,
                 meta={'name_of_plant': response.meta['name_of_plant'],
                       'name_of_pesticide': name_of_pesticide.a.text.strip()})
 
     def parse_content(self, response):
-        pass
+        soup = BeautifulSoup(response.body, 'lxml')
+        content = soup.find('div', {'class': 'content_article'})
+        article = content.find('h1').text.strip()
+        print(article, response.url)
 
