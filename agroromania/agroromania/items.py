@@ -10,5 +10,4 @@ import scrapy
 
 class AgroromaniaItem(scrapy.Item):
     # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+    one_item = scrapy.Field()
